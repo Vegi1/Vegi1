@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.black,
+        accentColor: Colors.anthracite,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final _passwordController = TextEditingController();
+
+  void _login() {
+    if (_passwordController.text.length >= 8) {
+      //TODO: implement login logic here
+      print('Login successful');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MyMainPage()),
+      );
+    } else {
+      print('Password must be at least 8 characters long');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _login,
+              child: Text('Log in'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyMainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Main Page'),
+      ),
+      body: Center(
+        child: Text('Welcome to the main page!'),
+      ),
+    );
+  }
+}
